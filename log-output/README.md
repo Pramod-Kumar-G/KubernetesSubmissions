@@ -37,3 +37,23 @@ docker build -t log-output .
 ```
 docker run log-output
 ```
+
+### Run on Kubernetes
+
+1. Make sure you have a Kubernetes cluster running.
+
+2. Apply the Deployment manifest:
+```bash
+kubectl apply -f manifests/deployment.yaml
+```
+3. Verify the pod is running
+```bash
+kubectl get pods
+```
+you should see a pod named `log-output-dep-...` running
+
+4. View logs from the pod:
+```bash
+kubectl logs -f <pod-name>
+```
+You should see output like: `2025-09-09T04:45:14.775Z iwPmXZwg`
