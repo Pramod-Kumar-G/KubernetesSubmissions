@@ -15,4 +15,7 @@ spec:
     spec:
       containers:
         - name: the-project
-          image: buddy00/the_project:latest
+          image: buddy00/the_project:0.1.0
+          env:
+            - name: PORT
+              value: "3001"
