@@ -5,7 +5,7 @@ const PORT = process.env.PORT;
 
 let count = -1;
 
-app.get("/", (req, res) => {
+app.get("/pingpong", (req, res) => {
   count += 1;
   res.send(`pong ${count}`);
 });
