@@ -1,13 +1,17 @@
-const randomStringGenerator = () => {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const randomNumber = Math.ceil(Math.random() * 20);
-  let randomString = "";
-  for (let i = 0; i < randomNumber; i++) {
-    randomString += characters[Math.ceil(Math.random() * 61)];
-  }
-  return randomString;
-};
+require("dotenv").config();
+const express = require("express");
+const randomStringGenerator = require("./randomStringGenerator");
+
+const app = express();
+
+const PORT = process.env.PORT;
+
+app.get("/", (req, res) => {
+  const date = new Date();
+  res.send({ timestamp: date, randomString });
+});
+
+app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
 
 const randomString = randomStringGenerator();
 setInterval(() => {
