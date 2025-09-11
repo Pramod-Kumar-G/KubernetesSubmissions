@@ -1,0 +1,13 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: log-output-svc
+spec:
+  selector:
+    app: log-output
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 2345
+      targetPort: 3002
