@@ -1,20 +1,28 @@
-require("dotenv").config();
-const express = require("express");
-const randomStringGenerator = require("./randomStringGenerator");
+const fs = require("fs");
 
-const app = express();
-
-const PORT = process.env.PORT;
-
-app.get("/", (req, res) => {
-  const date = new Date();
-  res.send({ timestamp: date, randomString });
-});
-
-app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
+const randomStringGenerator = () => {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const randomNumber = Math.ceil(Math.random() * 20);
+  let randomString = "";
+  for (let i = 0; i < randomNumber; i++) {
+    randomString += characters[Math.ceil(Math.random() * 61)];
+  }
+  return randomString;
+};
 
 const randomString = randomStringGenerator();
-setInterval(() => {
+
+const logToFile = () => {
   const date = new Date();
-  console.log(date, randomString);
-}, 5000);
+  const logData = date + " " + randomString + "\n";
+  fs.appendFile("/mnt/shared/file.log/file.log", logData, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log("data appended successfully!");
+    }
+  });
+};
+
+setInterval(logToFile, 5000);
