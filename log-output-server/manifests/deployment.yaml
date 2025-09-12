@@ -13,9 +13,20 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: shared-logs
+          emptyDir: {}
       containers:
         - name: log-output
-          image: buddy00/log-output:0.1.0
+          image: buddy00/log-output:0.2.0
           env:
             - name: PORT
               value: "3002"
+          volumeMounts:
+            - name: shared-logs
+              mountPath: /mnt/shared
+        - name: log-generator
+          image: buddy00/log-output-server:0.1.0
+          volumeMounts:
+            - name: shared-logs
+              mountPath: /mnt/shared

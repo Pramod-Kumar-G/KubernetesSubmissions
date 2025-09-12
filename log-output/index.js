@@ -16,7 +16,7 @@ const randomString = randomStringGenerator();
 const logToFile = () => {
   const date = new Date();
   const logData = date + " " + randomString + "\n";
-  fs.appendFile("/mnt/shared/file.log/file.log", logData, (err) => {
+  fs.appendFile("/mnt/shared/file.log", logData, (err) => {
     if (err) {
       console.error(err);
     } else {
