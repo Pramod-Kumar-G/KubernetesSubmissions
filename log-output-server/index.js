@@ -7,10 +7,10 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.get("/", async (req, res) => {
-  const logData = await fs.readFile("../mnt/shared/file.log", {
+  const logData = await fs.readFile("/mnt/shared/file.log", {
     encoding: "utf8",
   });
-  const requestLog = await fs.readFile("../ping-pong/requests.log", {
+  const requestLog = await fs.readFile("/mnt/data/requests.log", {
     encoding: "utf8",
   });
 

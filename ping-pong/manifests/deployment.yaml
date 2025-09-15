@@ -12,9 +12,16 @@ spec:
       labels:
         app: ping-pong
     spec:
+      volumes:
+        - name: ping-pongs
+          persistentVolumeClaim:
+            claimName: pingpong-pvc
       containers:
         - name: ping-pong
-          image: buddy00/ping-pong:0.1.0
+          image: buddy00/ping-pong:0.2.0
+          volumeMounts:
+            - mountPath: /mnt/data
+              name: ping-pongs
           env:
             - name: PORT
               value: "3000"

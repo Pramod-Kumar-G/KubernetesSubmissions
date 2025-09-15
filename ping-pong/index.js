@@ -6,7 +6,7 @@ const PORT = process.env.PORT;
 
 let count = -1;
 const writeToFile = () => {
-  fs.writeFile("requests.log", `${count}`, (err) => {
+  fs.writeFile("/mnt/data/requests.log", `${count}`, (err) => {
     if (err) {
       console.error(err);
     } else {
