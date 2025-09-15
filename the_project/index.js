@@ -1,9 +1,38 @@
+const fs = require("fs/promises");
 const express = require("express");
 require("dotenv").config();
 
 const app = express();
+let generatedTime = new Date().getTime();
 
+app.use((_req, _res, next) => {
+  const currentTime = new Date().getTime();
+  if (currentTime - generatedTime > 1000 * 60 * 10) {
+    downloadImage("https://picsum.photos/1200", "./image.jpg");
+    generatedTime = currentTime;
+  }
+  next();
+});
 app.use(express.static(__dirname));
+
+const downloadImage = async (url, path) => {
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const blob = await response.blob();
+    const arrayBuffer = await blob.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    await fs.writeFile(path, buffer);
+    console.log(`Image downloaded successfully to: ${path}`);
+  } catch (error) {
+    console.error("Error downloading image:", error);
+  }
+};
 
 const PORT = process.env.PORT || 3000;
 
