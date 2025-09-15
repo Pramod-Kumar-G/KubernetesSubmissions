@@ -7,13 +7,14 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.get("/", async (req, res) => {
-  const logData = await fs.readFile("/mnt/shared/file.log", {
+  const logData = await fs.readFile("../mnt/shared/file.log", {
     encoding: "utf8",
   });
-  let logDataArray = logData.split("\n");
-  logDataArray.pop();
+  const requestLog = await fs.readFile("../ping-pong/requests.log", {
+    encoding: "utf8",
+  });
 
-  res.send(logDataArray);
+  res.send(logData + "<br>Ping / Pongs: " + requestLog);
 });
 
 app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
