@@ -8,7 +8,7 @@ let generatedTime = new Date().getTime();
 app.use((_req, _res, next) => {
   const currentTime = new Date().getTime();
   if (currentTime - generatedTime > 1000 * 60 * 10) {
-    downloadImage("https://picsum.photos/1200", "./image.jpg");
+    downloadImage("https://picsum.photos/1200", "/usr/src/app/files/image.jpg");
     generatedTime = currentTime;
   }
   next();

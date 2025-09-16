@@ -13,9 +13,16 @@ spec:
       labels:
         app: the-project
     spec:
+      volumes:
+        - name: shared-image
+          persistentVolumeClaim:
+            claimName: the-project-image-pvc
       containers:
         - name: the-project
-          image: buddy00/the_project:0.1.0
+          image: buddy00/the-project:0.2.0
+          volumeMounts:
+            - name: shared-image
+              mountPath: /usr/src/app/files
           env:
             - name: PORT
               value: "3001"

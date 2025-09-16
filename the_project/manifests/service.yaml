@@ -9,5 +9,5 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 1234
+      port: 1235
       targetPort: 3001
