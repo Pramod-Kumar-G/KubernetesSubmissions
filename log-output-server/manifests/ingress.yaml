@@ -11,7 +11,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: log-output-svc
+                name: log-output-server-svc
                 port:
                   number: 2345
           - path: /pingpong
