@@ -14,4 +14,5 @@
 - [1.11](https://github.com/Pramod-Kumar-G/KubernetesSubmissions/tree/1.11/manifests-for-pingpong-and-log-output-server)
 - [1.12](https://github.com/Pramod-Kumar-G/KubernetesSubmissions/tree/1.12/the_project)
 - [1.13](https://github.com/Pramod-Kumar-G/KubernetesSubmissions/tree/1.13/the_project)
+- [2.1](https://github.com/Pramod-Kumar-G/KubernetesSubmissions/tree/2.1/log-output-server)
 
