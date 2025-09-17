@@ -1,6 +1,7 @@
 const fs = require("fs/promises");
 const express = require("express");
 require("dotenv").config();
+const path = require("path");
 
 const app = express();
 let generatedTime = new Date().getTime();
@@ -13,7 +14,8 @@ app.use((_req, _res, next) => {
   }
   next();
 });
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, "dist")));
+app.use("/files", express.static(path.join(__dirname, "files")));
 
 const downloadImage = async (url, path) => {
   try {

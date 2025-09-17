@@ -10,4 +10,4 @@ spec:
     - name: http
       protocol: TCP
       port: 1235
-      targetPort: 3001
+      targetPort: 3000
