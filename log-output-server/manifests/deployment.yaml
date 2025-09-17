@@ -17,6 +17,12 @@ spec:
       volumes:
         - name: shared-logs
           emptyDir: {}
+        - name: file-content
+          configMap:
+            name: log-config
+            items:
+              - key: information.txt
+                path: information.txt
         # - name: ping-pongs
         #   persistentVolumeClaim:
         #     claimName: pingpong-pvc
@@ -27,12 +33,20 @@ spec:
             - name: shared-logs
               mountPath: /mnt/shared
         - name: log-output-server
-          image: buddy00/log-output-server@sha256:47a010f018624247555022173daa9f5a7257450043bcb589a25ae5c5b04e2235
+          image: buddy00/log-output-server@sha256:ea028feadde0bc0ae18a8133635e71d3f805cb04c3f7eabca9dac1ea62f2c387
           env:
             - name: PORT
               value: "3002"
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-config
+                  key: MESSAGE
+
           volumeMounts:
             - name: shared-logs
               mountPath: /mnt/shared
+            - name: file-content
+              mountPath: /mnt/config
             # - name: ping-pongs
             #   mountPath: /mnt/data
