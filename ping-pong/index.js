@@ -14,9 +14,10 @@ let count = -1;
 //     }
 //   });
 // };
-app.get("/pingpong", (req, res) => {
+app.get("/pingpong", async (req, res) => {
   count += 1;
   // writeToFile();
+
   res.send({ data: `Ping / Pongs: ${count}` });
 });
 

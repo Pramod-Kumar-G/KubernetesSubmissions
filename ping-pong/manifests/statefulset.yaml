@@ -1,0 +1,62 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ping-pong-stset
+  namespace: exercises
+spec:
+  serviceName: ping-pong-svc
+  selector:
+    matchLabels:
+      app: ping-pong
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ping-pong
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: pingpong
+            - name: POSTGRES_USER
+              value: myuser
+            - name: POSTGRES_PASSWORD
+              value: sekret
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data-storage
+        - name: ping-pong-backend
+          image: buddy00/ping-pong:0.3.0
+          volumeMounts:
+            - mountPath: /mnt/data
+              name: postgres-data-storage
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data-storage
+      spec:
+        storageClassName: local-path
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: exercises
+  name: ping-pong-svc
+spec:
+  clusterIP: None
+  selector:
+    app: ping-pong
+  ports:
+    - port: 3000
+      name: ping-pong
+    - port: 5432
+      name: postgres
