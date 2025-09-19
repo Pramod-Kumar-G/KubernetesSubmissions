@@ -31,10 +31,23 @@ spec:
             - mountPath: /var/lib/postgresql/data
               name: postgres-data-storage
         - name: ping-pong-backend
-          image: buddy00/ping-pong:0.3.0
+          image: buddy00/ping-pong:0.4.0
           volumeMounts:
             - mountPath: /mnt/data
               name: postgres-data-storage
+          env:
+            - name: DB_HOST
+              value: localhost
+            - name: DB_USER
+              value: myuser
+            - name: DB_PASSWORD
+              value: sekret
+            - name: DB_NAME
+              value: pingpong
+            - name: DB_PORT
+              value: "5432"
+            - name: PORT
+              value: "3000"
   volumeClaimTemplates:
     - metadata:
         name: postgres-data-storage
