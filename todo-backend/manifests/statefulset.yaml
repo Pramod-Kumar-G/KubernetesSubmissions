@@ -1,8 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: project
   name: todo-backend-svc
 spec:
+  selector:
+    app: todo-backend
   clusterIP: None
   ports:
     - port: 3001
@@ -26,13 +29,15 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: todo-backend:0.2.0
+          image: buddy00/todo-backend:0.2.0
           ports:
             - containerPort: 3001
               name: todo-backend
           env:
             - name: PORT
               value: "3001"
+            - name: MONGODB_URI
+              value: "mongodb://root:sekret@localhost:27017/"
         - name: mongo
           image: mongo
           env:

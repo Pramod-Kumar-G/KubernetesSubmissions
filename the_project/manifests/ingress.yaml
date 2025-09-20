@@ -21,4 +21,4 @@ spec:
               service:
                 name: todo-backend-svc
                 port:
-                  number: 1234
+                  number: 3001
