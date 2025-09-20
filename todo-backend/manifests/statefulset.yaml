@@ -33,13 +33,23 @@ spec:
           ports:
             - containerPort: 3001
               name: todo-backend
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGODB_URI
           envFrom:
             - configMapRef:
                 name: todo-backend-config
-            - secretRef:
-                name: mongo-secret
         - name: mongo
           image: mongo
+          envFrom:
+            - secretRef:
+                name: mongo-secret
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-data-storage
   volumeClaimTemplates:
     - metadata:
         name: mongo-data-storage
