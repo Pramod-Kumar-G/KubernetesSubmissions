@@ -28,6 +28,14 @@ spec:
         app: todo-backend
     spec:
       containers:
+        - name: mongo
+          image: mongo
+          envFrom:
+            - secretRef:
+                name: mongo-secret
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-data-storage
         - name: todo-backend
           image: buddy00/todo-backend:0.2.0
           ports:
@@ -42,14 +50,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: todo-backend-config
-        - name: mongo
-          image: mongo
-          envFrom:
-            - secretRef:
-                name: mongo-secret
-          volumeMounts:
-            - mountPath: /data/db
-              name: mongo-data-storage
   volumeClaimTemplates:
     - metadata:
         name: mongo-data-storage
