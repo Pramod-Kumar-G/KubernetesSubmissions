@@ -37,7 +37,7 @@ spec:
             - mountPath: /data/db
               name: mongo-data-storage
         - name: todo-backend
-          image: buddy00/todo-backend:0.2.0
+          image: buddy00/todo-backend:0.3.0
           ports:
             - containerPort: 3001
               name: todo-backend
