@@ -35,6 +35,10 @@ const initializeDatabase = async () => {
   }
 };
 
+app.get("/", (req, res) => {
+  res.status(200).send("ok");
+});
+
 app.get("/pingpong", async (req, res) => {
   try {
     const result = await pool.query(

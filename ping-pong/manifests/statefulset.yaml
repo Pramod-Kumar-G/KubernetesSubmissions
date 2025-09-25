@@ -29,9 +29,10 @@ spec:
               value: sekret
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
+              subPath: postgres
               name: postgres-data-storage
         - name: ping-pong-backend
-          image: buddy00/ping-pong:0.4.0
+          image: buddy00/ping-pong@sha256:ee7b2a2c7510e16ad74440c22657e69baf1ab5cb416f5793d9da5b7da96b72f9
           volumeMounts:
             - mountPath: /mnt/data
               name: postgres-data-storage
@@ -52,12 +53,11 @@ spec:
     - metadata:
         name: postgres-data-storage
       spec:
-        storageClassName: local-path
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 500Mi
+            storage: 100Mi
 ---
 apiVersion: v1
 kind: Service
@@ -65,11 +65,10 @@ metadata:
   namespace: exercises
   name: ping-pong-svc
 spec:
-  clusterIP: None
+  type: LoadBalancer
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 3000
   selector:
     app: ping-pong
-  ports:
-    - port: 3000
-      name: ping-pong
-    - port: 5432
-      name: postgres
