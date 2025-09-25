@@ -65,8 +65,8 @@ metadata:
   namespace: exercises
   name: ping-pong-svc
 spec:
-  # type: NodePort
-  clusterIP: None
+  type: NodePort
+  # clusterIP: None
   ports:
     - port: 3000
     # - port: 80
