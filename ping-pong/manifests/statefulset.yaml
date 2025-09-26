@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres
+          image: postgres:13
           ports:
             - containerPort: 5432
           env:
@@ -29,13 +29,10 @@ spec:
               value: sekret
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
               subPath: postgres
-              name: postgres-data-storage
         - name: ping-pong-backend
           image: buddy00/ping-pong@sha256:ee7b2a2c7510e16ad74440c22657e69baf1ab5cb416f5793d9da5b7da96b72f9
-          volumeMounts:
-            - mountPath: /mnt/data
-              name: postgres-data-storage
           env:
             - name: DB_HOST
               value: localhost
@@ -51,13 +48,13 @@ spec:
               value: "3000"
   volumeClaimTemplates:
     - metadata:
-        name: postgres-data-storage
+        name: postgres-storage
       spec:
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 100Mi
+            storage: 500Mi
 ---
 apiVersion: v1
 kind: Service
@@ -65,8 +62,8 @@ metadata:
   namespace: exercises
   name: ping-pong-svc
 spec:
-  type: NodePort
-  # clusterIP: None
+  # type: NodePort
+  clusterIP: None
   ports:
     - port: 3000
     # - port: 80
