@@ -17,7 +17,7 @@ app.get("/", async (req, res) => {
   const MESSAGE = process.env.MESSAGE;
 
   console.log(fileContent, MESSAGE);
-  const response = await fetch("http://ping-pong-svc:3000/pingpong");
+  const response = await fetch("http://ping-pong-svc:3000");
   const pongs = await response.json();
   const requestLog = `file content: ${fileContent} <br/> env variable: MESSAGE=${MESSAGE} <br/> ${logData} <br/> ${pongs.data}`;
   console.log(requestLog);

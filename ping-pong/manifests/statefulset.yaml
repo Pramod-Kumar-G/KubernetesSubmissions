@@ -32,7 +32,7 @@ spec:
               name: postgres-storage
               subPath: postgres
         - name: ping-pong-backend
-          image: buddy00/ping-pong@sha256:ee7b2a2c7510e16ad74440c22657e69baf1ab5cb416f5793d9da5b7da96b72f9
+          image: buddy00/ping-pong:0.6.0
           env:
             - name: DB_HOST
               value: localhost
