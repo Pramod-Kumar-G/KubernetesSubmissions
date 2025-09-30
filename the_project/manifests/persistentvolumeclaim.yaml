@@ -5,9 +5,8 @@ metadata:
   namespace: project
   name: the-project-image-pvc
 spec:
-  storageClassName: my-pv
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 500Mi

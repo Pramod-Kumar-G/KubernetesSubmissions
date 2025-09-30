@@ -14,6 +14,10 @@ app.use(express.json());
 morgan.token("body", (req, res) => JSON.stringify(req.body));
 app.use(morgan(":method :url :status :response-time ms :body"));
 
+app.get("/", async (_req, res) => {
+  res.send("ok");
+});
+
 app.get("/todos", async (_req, res) => {
   const todos = await Todo.find({});
   res.send(todos);

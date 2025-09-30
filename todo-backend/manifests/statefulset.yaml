@@ -10,6 +10,8 @@ spec:
   ports:
     - port: 3001
       name: todo-backend
+    - port: 27017
+      name: mongo
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -29,15 +31,16 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: mongo
+          image: mongo:6.0
           envFrom:
             - secretRef:
                 name: mongo-secret
           volumeMounts:
             - mountPath: /data/db
+              subPath: mongo
               name: mongo-data-storage
         - name: todo-backend
-          image: buddy00/todo-backend:0.3.0
+          image: buddy00/todo-backend:0.5.0
           ports:
             - containerPort: 3001
               name: todo-backend
@@ -54,7 +57,6 @@ spec:
     - metadata:
         name: mongo-data-storage
       spec:
-        storageClassName: local-path
         accessModes:
           - ReadWriteOnce
         resources:
