@@ -31,3 +31,6 @@
 - [3.3](https://github.com/Pramod-Kumar-G/KubernetesSubmissions/tree/3.3/log-output-server)
 - [3.4](https://github.com/Pramod-Kumar-G/KubernetesSubmissions/tree/3.4/log-output-server)
 - [3.5](https://github.com/Pramod-Kumar-G/KubernetesSubmissions/tree/3.5)
+#### Exercise 3.6
+- [frontend](https://github.com/Pramod-Kumar-G/the-project/tree/3.6)
+- [backend](https://github.com/Pramod-Kumar-G/the-project-backend/tree/3.6)
