@@ -34,3 +34,6 @@
 #### Exercise 3.6
 - [frontend](https://github.com/Pramod-Kumar-G/the-project/tree/3.6)
 - [backend](https://github.com/Pramod-Kumar-G/the-project-backend/tree/3.6)
+#### Exercise 3.7
+- [frontend](https://github.com/Pramod-Kumar-G/the-project/tree/3.7)
+- [backend](https://github.com/Pramod-Kumar-G/the-project-backend/tree/3.7)
