@@ -4,6 +4,7 @@ require("dotenv").config();
 const cors = require("cors");
 const Todo = require("./todo.model");
 const connectDB = require("./dbConnect");
+const { default: mongoose } = require("mongoose");
 
 const app = express();
 
@@ -26,6 +27,17 @@ app.get("/todos", async (_req, res) => {
 app.post("/todos", async (req, res) => {
   const savedTodo = await Todo.create(req.body);
   res.send(savedTodo);
+});
+
+app.get("/health", async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping();
+    res.json({ status: "ok", database: "reachable" });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ status: "error", database: "unreachable", error: err.message });
+  }
 });
 
 app.use((error, req, res, next) => {

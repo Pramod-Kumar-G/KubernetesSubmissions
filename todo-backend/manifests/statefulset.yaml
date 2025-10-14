@@ -40,7 +40,7 @@ spec:
               subPath: mongo
               name: mongo-data-storage
         - name: todo-backend
-          image: buddy00/todo-backend:0.5.0
+          image: buddy00/todo-backend:0.6.0
           ports:
             - containerPort: 3001
               name: todo-backend
@@ -53,6 +53,18 @@ spec:
           envFrom:
             - configMapRef:
                 name: todo-backend-config
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+              path: /health
+              port: 3001
+          livenessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            httpGet:
+              path: /health
+              port: 3001
   volumeClaimTemplates:
     - metadata:
         name: mongo-data-storage
