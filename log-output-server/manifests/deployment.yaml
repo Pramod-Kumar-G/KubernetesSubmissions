@@ -32,7 +32,7 @@ spec:
               mountPath: /mnt/shared
 
         - name: log-output-server
-          image: buddy00/log-output-server:0.5.0
+          image: buddy00/log-output-server:0.7.0
           env:
             - name: PORT
               value: "3002"
@@ -41,6 +41,12 @@ spec:
                 configMapKeyRef:
                   name: log-config
                   key: MESSAGE
+          readinessProbe:
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            httpGet:
+              path: /ready
+              port: 3002
 
           volumeMounts:
             - name: shared-logs

@@ -53,6 +53,16 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/ready", async (req, res) => {
+  try {
+    await pool.query("SELECT 1;");
+    res.status(200).send("OK");
+  } catch (err) {
+    console.error("Readiness check failed:", err);
+    res.status(500).send("Database not reachable");
+  }
+});
+
 const startServer = async () => {
   await initializeDatabase();
   app.listen(PORT, () => {

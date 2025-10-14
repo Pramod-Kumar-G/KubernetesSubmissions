@@ -32,7 +32,7 @@ spec:
               name: postgres-storage
               subPath: postgres
         - name: ping-pong-backend
-          image: buddy00/ping-pong:0.6.0
+          image: buddy00/ping-pong:0.7.0
           env:
             - name: DB_HOST
               value: localhost
@@ -46,6 +46,12 @@ spec:
               value: "5432"
             - name: PORT
               value: "3000"
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+              path: /ready
+              port: 3000
   volumeClaimTemplates:
     - metadata:
         name: postgres-storage

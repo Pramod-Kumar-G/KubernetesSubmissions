@@ -25,4 +25,14 @@ app.get("/", async (req, res) => {
   res.send(requestLog);
 });
 
+app.get("/ready", async (req, res) => {
+  try {
+    await fetch("http://ping-pong-svc:3000");
+    res.status(200).send("OK");
+  } catch (err) {
+    console.error("Readiness check failed:", err);
+    res.status(500).send("Ping Pong app not reachable");
+  }
+});
+
 app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
